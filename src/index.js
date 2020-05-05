@@ -15,8 +15,8 @@ const loadBabelLogo = () => {
   babelLogoImg.src = babelLogo;
   babelLogoImg.onload = () => {
     babelLogoImg.style.height = '100px';
+    postEl.before(babelLogoImg);
   };
-  postEl.before(babelLogoImg);
 };
 
 loadBabelLogo();
