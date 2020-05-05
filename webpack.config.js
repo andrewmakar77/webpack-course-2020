@@ -4,10 +4,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  context: path.resolve(__dirname, 'src'),
   devtool: 'inline-source-map',
   entry: {
-    main: './src/index.js',
-    analytics: './src/analytics.js',
+    main: './index.js',
+    analytics: './analytics.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -20,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src/index.html'),
+      template: 'index.html',
       minify: true,
     }),
     new CleanWebpackPlugin(),
