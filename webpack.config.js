@@ -19,6 +19,12 @@ module.exports = {
     compress: true,
     port: 9000,
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.xml', '.csv'],
+    alias: {
+      '@app': path.resolve(__dirname, 'src'),
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
@@ -39,6 +45,14 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ['file-loader'],
+      },
+      {
+        test: /\.xml$/,
+        use: ['xml-loader'],
+      },
+      {
+        test: /\.csv$/,
+        use: ['csv-loader'],
       },
     ],
   },
