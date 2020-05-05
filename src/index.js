@@ -1,3 +1,4 @@
+import './styles/main.scss';
 import './styles/styles.css';
 import db from '@app/assets/db.json';
 import logo from '@app/assets/logo.png';
