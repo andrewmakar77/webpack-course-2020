@@ -8,7 +8,7 @@ module.exports = {
     analytics: './src/analytics.js',
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
@@ -16,5 +16,10 @@ module.exports = {
     compress: true,
     port: 9000,
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/index.html'),
+      minify: true,
+    }),
+  ],
 };
