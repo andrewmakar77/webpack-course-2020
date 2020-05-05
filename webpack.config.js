@@ -5,7 +5,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
-  devtool: 'inline-source-map',
   entry: {
     main: './index.js',
     analytics: './analytics.js',
@@ -23,6 +22,11 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json', '.xml', '.csv'],
     alias: {
       '@app': path.resolve(__dirname, 'src'),
+    },
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
     },
   },
   plugins: [

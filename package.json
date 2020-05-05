@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
+    "start": "webpack-dev-server --mode production --open",
     "build": "webpack --mode production",
     "deploy": "npm run build && firebase deploy"
   },
@@ -28,5 +29,7 @@
     "webpack-dev-server": "^3.10.3",
     "xml-loader": "^1.2.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "moment": "^2.25.3"
+  }
 }

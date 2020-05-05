@@ -1,6 +1,9 @@
+import * as moment from 'moment';
+
 function createAnalytics() {
   let counter = 0;
   let isDestroyed = false;
+  let destroyedDate;
 
   const listener = () => counter++;
 
@@ -10,10 +13,11 @@ function createAnalytics() {
     destroy() {
       document.removeEventListener('click', listener);
       isDestroyed = true;
+      destroyedDate = moment().startOf('second').fromNow();
     },
     getClicks() {
       if (isDestroyed) {
-        return 'Analytics is destroyed';
+        return `Analytics is destroyed: ${destroyedDate}`;
       }
       return counter;
     },
