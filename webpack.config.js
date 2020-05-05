@@ -59,7 +59,7 @@ module.exports = {
     port: 9000,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.xml', '.csv'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.xml', '.csv'],
     alias: {
       '@app': path.resolve(__dirname, 'src'),
     },
@@ -85,6 +85,17 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
+          },
+        },
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-typescript'],
             plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },
