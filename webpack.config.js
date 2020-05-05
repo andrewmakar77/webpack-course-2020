@@ -46,7 +46,7 @@ module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
-    main: './index.js',
+    main: ['@babel/polyfill', './index.js'],
     analytics: './analytics.js',
   },
   output: {
@@ -78,6 +78,17 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
+          },
+        },
+      },
       {
         test: /\.css$/,
         use: cssLoaders(),

@@ -25,3 +25,9 @@ const loadBabelLogo = () => {
 };
 
 loadBabelLogo();
+
+const checkAsync = async () => {
+  return await Promise.resolve('async is working...');
+};
+
+checkAsync().then(console.log);
