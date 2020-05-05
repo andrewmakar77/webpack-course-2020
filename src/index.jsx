@@ -6,6 +6,9 @@ import babelLogo from '@app/assets/babel.png';
 import xmlLetter from '@app/assets/letter';
 import csv from '@app/assets/data-csv';
 import { Post } from '@app/Post';
+import React from 'react';
+import { render } from 'react-dom';
+import { App } from './app';
 
 const post = new Post('New post', logo);
 const postEl = document.querySelector('.post');
@@ -25,3 +28,11 @@ const loadBabelLogo = () => {
 };
 
 loadBabelLogo();
+
+const checkAsync = async () => {
+  return await Promise.resolve('async is working...');
+};
+
+checkAsync().then(console.log);
+
+render(<App />, document.querySelector('#app'));

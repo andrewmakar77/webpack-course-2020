@@ -28,6 +28,22 @@ const cssLoaders = (loader) => {
   return loaders;
 };
 
+const babelOptions = (preset) => {
+  const opt = {
+    loader: 'babel-loader',
+    options: {
+      presets: ['@babel/preset-env'],
+      plugins: ['@babel/plugin-proposal-class-properties'],
+    },
+  };
+
+  if (preset) {
+    opt.options.presets.push(preset);
+  }
+
+  return opt;
+};
+
 const optimize = () => {
   const config = {
     splitChunks: {
@@ -46,7 +62,7 @@ module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
   entry: {
-    main: './index.js',
+    main: ['@babel/polyfill', './index.jsx'],
     analytics: './analytics.js',
   },
   output: {
@@ -59,7 +75,7 @@ module.exports = {
     port: 9000,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.xml', '.csv'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.xml', '.csv'],
     alias: {
       '@app': path.resolve(__dirname, 'src'),
     },
@@ -78,6 +94,21 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: babelOptions(),
+      },
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: babelOptions('@babel/preset-react'),
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: babelOptions('@babel/preset-typescript'),
+      },
       {
         test: /\.css$/,
         use: cssLoaders(),

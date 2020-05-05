@@ -1,10 +1,9 @@
 import * as moment from 'moment';
+
 export class Post {
-  constructor(title, image) {
-    this.title = title;
-    this.date = moment().format('MMM Do YY');
-    this.image = image;
-  }
+  public date: string = moment().format('MMM Do YY');
+
+  constructor(public title: string, public image: string) {}
 
   toString() {
     return JSON.stringify(new Post(this.title, this.image));
