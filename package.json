@@ -4,10 +4,10 @@
   "description": "webpack-course",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open",
-    "start": "webpack-dev-server --mode production --open",
-    "build": "webpack --mode production",
-    "deploy": "npm run build && firebase deploy"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --open",
+    "dev": "cross-env NODE_ENV=development webpack",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "deploy": "cross-env NODE_ENV=production npm run build && firebase deploy"
   },
   "keywords": [
     "js",
@@ -19,12 +19,16 @@
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
     "csv-loader": "^3.0.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "raw-loader": "^4.0.1",
     "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^3.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
