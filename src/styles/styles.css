@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+body {
+  font-family: 'Cabin', sans-serif;
+  color: #fff019;
+  background-color: #280e44;
+}
+
+.container {
+  max-width: 1000px;
+  padding-top: 2rem;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
