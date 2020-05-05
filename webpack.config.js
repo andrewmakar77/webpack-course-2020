@@ -1,5 +1,6 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -9,7 +10,7 @@ module.exports = {
     analytics: './src/analytics.js',
   },
   output: {
-    filename: '[name].[contenthash].bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
@@ -22,5 +23,6 @@ module.exports = {
       template: path.join(__dirname, 'src/index.html'),
       minify: true,
     }),
+    new CleanWebpackPlugin(),
   ],
 };
