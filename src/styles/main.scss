@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+@import 'varela-font.css';
+
+$yellow: #fff019;
+$purple: #280e44;
+
+$primary-text: $yellow;
+$primary-bg: $purple;
+$post-border: 1px solid $yellow;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Cabin', sans-serif;
+  color: $primary-text;
+  background-color: $primary-bg;
+  margin: 0;
+  line-height: 1.5rem;
+  overflow-wrap: break-word;
+}

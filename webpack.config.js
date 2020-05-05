@@ -9,6 +9,25 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const cssLoaders = (loader) => {
+  const loaders = [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        hmr: isDev,
+        reloadAll: true,
+      },
+    },
+    'css-loader',
+  ];
+
+  if (loader) {
+    loaders.push(loader);
+  }
+
+  return loaders;
+};
+
 const optimize = () => {
   const config = {
     splitChunks: {
@@ -61,16 +80,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: isDev,
-              reloadAll: true,
-            },
-          },
-          'css-loader',
-        ],
+        use: cssLoaders(),
+      },
+      {
+        test: /\.s[ac]ss$/,
+        use: cssLoaders('sass-loader'),
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
