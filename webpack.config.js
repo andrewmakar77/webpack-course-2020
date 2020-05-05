@@ -1,11 +1,31 @@
 const path = require('path');
+const isDev = process.env.NODE_ENV === 'development';
+const isProd = !isDev;
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const optimize = () => {
+  const config = {
+    splitChunks: {
+      chunks: 'all',
+    },
+  };
+
+  if (isProd) {
+    config.minimizer = [new TerserPlugin(), new OptimizeCssAssetsPlugin()];
+  }
+
+  return config;
+};
 
 module.exports = {
   mode: 'development',
   context: path.resolve(__dirname, 'src'),
-  devtool: 'inline-source-map',
   entry: {
     main: './index.js',
     analytics: './analytics.js',
@@ -15,22 +35,42 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: path.join(__dirname, 'src'),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.xml', '.csv'],
+    alias: {
+      '@app': path.resolve(__dirname, 'src'),
+    },
+  },
+  optimization: optimize(),
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
-      minify: true,
+      minify: isProd,
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
     }),
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'src/assets/favicon.png'), to: path.resolve(__dirname, 'dist') }]),
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: isDev,
+              reloadAll: true,
+            },
+          },
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -39,6 +79,14 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ['file-loader'],
+      },
+      {
+        test: /\.xml$/,
+        use: ['xml-loader'],
+      },
+      {
+        test: /\.csv$/,
+        use: ['csv-loader'],
       },
     ],
   },

@@ -1,7 +1,8 @@
+import * as moment from 'moment';
 export class Post {
   constructor(title, image) {
     this.title = title;
-    this.date = new Date();
+    this.date = moment().format('MMM Do YY');
     this.image = image;
   }
 
