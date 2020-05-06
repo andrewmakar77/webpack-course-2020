@@ -60,6 +60,7 @@ const optimize = () => {
 
 module.exports = {
   mode: 'development',
+  performance: { hints: false },
   context: path.resolve(__dirname, 'src'),
   entry: {
     main: ['@babel/polyfill', './index.jsx'],
@@ -90,7 +91,12 @@ module.exports = {
       filename: '[name].[contenthash].css',
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'src/assets/favicon.png'), to: path.resolve(__dirname, 'dist') }]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'src/assets/favicon.png'),
+        to: path.resolve(__dirname, 'dist'),
+      },
+    ]),
   ],
   module: {
     rules: [
